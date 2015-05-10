@@ -1,0 +1,101 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<!-- saved from url=(0073)https://www.cs.drexel.edu/~kschmidt/CS265/Assignments/Python-philly_info/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<meta http-equiv="Content-Language" content="en-us">
+	
+	<meta http-equiv="Expires" content="no-expire">
+  <meta name="Author" content="Jeremy R. Johnson">
+	<meta name="Publisher" content="Drexel University">
+	<meta name="Copyright" content="">
+	<meta name="Keywords" content="Programming Techniques Unix">
+	<meta name="Description" content="Lab for CS265 - Adv. Programming Techniques">
+	<meta name="Pagetype" content="Lab">
+	<meta name="Audience" content="All">
+	<link rel="shortcut icon" type="image/gif" href="https://www.cs.drexel.edu/~kschmidt/CS265/images/drexel.gif">
+	<script language="JavaScript" src="./Original Assignment_files/courseInfo.js"></script>
+	<script language="JavaScript" src="./Original Assignment_files/courseFormat.js"></script>
+  <title>CS 265 -- Assignment, Python</title>
+</head>
+
+<body text="#330099" link="#000066" vlink="#000066" alink="#FF0000" background="./Original Assignment_files/blueTexture.jpeg">
+
+<h1> Assignment - Find Parking Lots </h1>
+
+<h2> Introduction </h2>
+
+<p> The purpose of this assignment is for students to become familiar with
+writing simple Python scripts, to use built-in containers (data structures),
+and to see how modules can make some daunting tasks fairly simple. </p>
+
+<p> You will write a Python program that will pull down some Phila.
+municipal data from the Web, find nearby parking lots. </p>
+
+<p> The motivation is a mobile app.  We won't be worrying about the GUI, of
+course, and we'll have to fake the phone's location. </p>
+
+<p> Your program will pull a CSV down from <a target="_blank" href="https://raw.githubusercontent.com/CityOfPhiladelphia/ParksDept-geodata/264f2d579ad2662a135893b03c29d13435a74254/Parking%20Areas%20point/Parking_Areas_point.csv">
+	https://raw.githubusercontent.com/CityOfPhiladelphia/ParksDept-geodata/264f2d579ad2662a135893b03c29d13435a74254/Parking%20Areas%20point/Parking_Areas_point.csv
+</a>, and parse it up.  Use the lat/long information to determine the
+20<sup>‡</sup> closest parking lots (belonging to Phila. Parks), in
+decreasing order by distance from user<sup>†</sup>, one per line .
+</p>
+
+<p> Each line of output will have this form: </p>
+
+<blockquote><code>
+<pre> LAT LONG TYPE SPACES </pre>
+</code></blockquote>
+
+<p> To compute distance, just use the Euclidean measure.  The area is small
+enough that any error is negligible. </p>
+
+<p> <sup>‡</sup> Your program will have an option, <code>-n</code> ,
+that will allow the user to specify the size of the list.  The default will
+be 20.  So: </p>
+
+<blockquote><code>./findParking.py -n12</code></blockquote>
+
+<p> <sup>†</sup>To get the user's location, I provided a Python
+module, <a target="_blank" href="https://www.cs.drexel.edu/~kschmidt/CS265/Assignments/Python-philly_info/philly_loc.py">philly_loc.py</a> that has a
+single function, <code>getLoc()</code>, which will return a list,
+<code>[<var>lat</var>, <var>long</var> ]</code>, of a location, hopefully
+somewhere in/near Phila.  There is a example of using this module in <a target="_blank" href="https://www.cs.drexel.edu/~kschmidt/CS265/Assignments/Python-philly_info/loc_eg.py">loc_eg.py</a> example. </p>
+
+<h2> Some other notes </h2>
+
+<h3> <tt><b>csv</b></tt> module - parsing CSV files </h3>
+
+<p> I've provided an example of parsing CSVs in <a target="sample" href="https://www.cs.drexel.edu/~kschmidt/CS265/Programs/Python/csv-eg.py">csv-eg.py</a> .  You'll want to pull
+down the sample input, <a target="sample" href="https://www.cs.drexel.edu/~kschmidt/CS265/Programs/Python/sample.csv">sample.csv</a> . </p>
+
+<h3> <tt><b>urllib</b></tt> module - making an HTTP request </h3>
+
+<p> The <tt>urllib</tt> module lets you request a webpage and capture the
+page that is returned.  We're going very simply here; We won't fill in agent
+info, check for an updated page, etc.  Just open a connection, get the file
+down, and parse it. </p>
+
+<p> I have provided an example of this in <a target="sample" href="https://www.cs.drexel.edu/~kschmidt/CS265/Programs/Python/urllib_eg.py">urllib_eg.py</a>.  You can wrap that
+handle in a CSV reader. </p>
+
+<hr width="100%">
+<p> While you're working on the parsing bit I would simply pull down the
+page to local disk, and open it from there, to avoid maybe annoying the 
+webmasters.  It's only polite, especially since you're not identifying
+yourself. </p>
+
+<hr>
+<h2> What to hand in </h2>
+
+<ul>
+	<li> <tt><b>findParking.py</b></tt> - Your complete Python program </li>
+	<li> <tt><b>README</b></tt> <i>(optional)</i> - anything you want/need to
+		tell us </li>
+</ul>
+
+<p> Please note, use the filenames <b>as shown here</b>.  I.e.,
+<tt>README.txt</tt> will <i>not</i> be read before grading. </p>
+
+
+
+</body></html>
