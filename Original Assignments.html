@@ -1,0 +1,202 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<!-- saved from url=(0067)https://www.cs.drexel.edu/~kschmidt/CS265/Assignments/Bash-DrMath2/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<meta http-equiv="Content-Language" content="en-us">
+	
+	<meta http-equiv="Expires" content="no-expire">
+  <meta name="Author" content="Jeremy R. Johnson">
+	<meta name="Publisher" content="Drexel University">
+	<meta name="Copyright" content="">
+	<meta name="Keywords" content="Programming Techniques Unix">
+	<meta name="Description" content="Lab for CS265/571 - Adv. Programming Techniques">
+	<meta name="Pagetype" content="Lab">
+	<meta name="Audience" content="All">
+	<link rel="shortcut icon" type="image/gif" href="https://www.cs.drexel.edu/~kschmidt/images/drexel.gif">
+	<script language="JavaScript" src="./Original Assignments_files/courseInfo.js"></script>
+	<script language="JavaScript" src="./Original Assignments_files/courseFormat.js"></script>
+  <title>CS 265/571 -- Assignment 1</title>
+</head>
+
+
+<body text="#330099" link="#000066" vlink="#000066" alink="#FF0000" background="./Original Assignments_files/blueTexture.jpeg">
+            
+<h1>Assignment 1</h1>
+            
+<h3> CS 265/571 Advanced Programming Techniques </h3>
+<h3> Introduction </h3>
+
+<p> The purpose of this assignment is for students to become comfortable
+using Unix filters (including Awk) to solve text processing problems.
+Students will also write a simple shell script. Students will also need to
+become comfortable using Unix (basic commands, documentation, file
+redirection - i.e. the bash shell), a Unix editor, the Unix file system.
+Unix filters, in addition to Awk, that might be useful are cut, grep, sort,
+uniq, wc. You may also want to use the option -R to grep and ls which causes
+the command to be applied recursively to all subdirectories of the directory
+in which it is called.  Or, you might find that the find utility is more
+useful. </p>
+
+<p> The text data that will be used is a directory of email messages sent by
+the Math Doctors associated with the <a href="http://www.mathforum.org/dr.math/">Math Forum's Ask Dr. Math</a>
+service during several months. The data is organized into directories whose
+name is a number. Each directory contains text files with emails that were
+sent about different problems (one message per file). There may be several
+emails about the same problem - this is called a thread. The files are
+labeled by the problem number and a second number indicating which message
+in a given thread it is. E.G. prob309264_03, indicates that the file
+contains the third message in the thread associated with problem 309264.
+Note that the data set we are using only contains the messages sent by the
+Math Doctors, the corresponding messages sent by students asking the
+question and following up on the advice sent by the Math Doctor are not
+included. The file <a href="https://www.cs.drexel.edu/~kschmidt/CS265/Assignments/Bash-DrMath2/Archive/309/prob309264_03">prob309264_03</a>
+contains a sample message. Notice that the email contains a header with
+information on the thread number, the Math Doctor who sent the message and
+the date and time the message was sent.</p>
+
+<p> The data can be obtained from: </p>
+
+<blockquote><tt>
+/home/kschmidt/public_html/Files/DrMathArchive
+</tt></blockquote>
+
+<p> You will need to logon to the CS Linux machines (e.g. tux.cs.drexel.edu)
+to access this data. Note that the data is large (119 MB) with many files,
+so you should not copy the entire data set to your account or computer. You
+should copy a couple of the numbered subdirectories to experiment with
+before working on the entire data set. </p>
+
+<p> The following problems ask you to find out information about the messages
+and Math Doctors in the data set. You should do so with Unix filters (you
+may need to combine several filters using a pipe), simple Unix Scripts, or
+Awk programs. There are many different ways you can solve the problem - we
+are not looking for a particular solution, but for effective use of the Unix
+tools that we have been discussing in class. </p>
+
+<p> The data set covers an 11-month span, though not all in the same
+year.  (Be careful; we will test on a subset of the data, so you should not
+make assumptions about the data, e.g., the timespan that is covered, etc.)
+</p>
+
+<p> You should always try your solution on a small subset of the data so that
+it does not take long to run while you are working things out and so that
+you can test the correctness of your answer (you will not be able to test
+the correctness of your solution on the entire data set by manually looking
+at all of the files - there are too many of them). If you get stuck please
+ask one of the instructors or TAs for help. You may also post questions to
+the class mailing list. </p>
+
+<h2> Problems </h2> 
+
+<p> For each problem, submit a script, desribed below, that outputs the
+requested output (and just the requested output; I don't want to see "The
+answer is ___", or "The number of tribbles is ___".  Consider <tt>ls</tt> or
+<tt>head</tt>; they don't print silly stuff, either) to stdout.  the Unix
+commands, scripts, programs that you used. You should also indicate how you
+tested your solution on a small data set. Provide sufficient documentation
+explaining your approach. </p>
+
+<p> Use a variable, called <tt>ARCHIVE</tt>, to point to the directory that
+contains the archive of messages that to be studied used.  That is, do
+<em>not</em> hardcode any paths, directories, etc., into your scripts. </p>
+
+<p> This way, you can use the same scripts on your test data and the actual
+data.  Also, if the actual data moved, the scripts can easily be
+reconfigured.  Finally, we can test your scripts with another data set. </p>
+
+<p> Here are your problems: </p>
+
+<ol>
+	<li> Determine the number of directories containing problems. Observe that
+	there is only one message per file.  What is the total number of messages
+	sent?  Output 2 columns on a single line, the # of directories, and the
+	total # of messages sent. </li>
+
+	<li> Determine how many messages are in the longest thread.  List all of
+	the threads that are of that length.  Here it might be helpful to write
+	(maybe) a temp file w/2 columns, sorting on the second column in an
+	intelligent way, and the using bash's <tt>read</tt>, or Awk to find the
+	lines you want.  Note, a suffix of _6 does not necessarily mean that the
+	previous 5 messages exist. </li>
+
+	<li> Write a script that takes, as command-line arguments, the year,
+	month and day, in that order.  E.g.:
+		<blockquote><tt><pre>prob3 2003 11 27</pre></tt></blockquote>
+	, and returns a list of messages that were sent on that day. </li>
+
+	<li> In each message, pull out the target hostname (<em>not</em> the full
+	email address) from the To: line (be careful about finding quoted To:
+	lines).  How many distinct hostnames are there?  Note, hostnames on the
+	Internet are case insensitive.  How many messages were sent to each (for
+	this you'll need sort, and you'll want to look at the <tt>squash</tt> awk
+	script in the anagram lab from the Awk lecture).
+	
+	<p> Output 2 columns, the hostname and the # of messages sent there, 1
+	record per line, sorted by column 2, in descending order.  The last line
+	shall be "total <i>nnn</i>", where <i>nnn</i> is the total # of distinct
+	hostnames.
+	</p>
+	</li>
+</ol>
+
+<h3> Grading </h3>
+
+<p> Each problem will be worth 20%, with 20% reserved for coding style,
+comments, the ability to follow directions, the README, etc. </p>
+       
+<h2> Submission </h2>
+
+<p> Submit the following files, via <tt>submit_cl</tt>: </p>
+
+<ul>
+	<li> <tt><b>prob1</b></tt> </li>
+	<li> <tt><b>prob2</b></tt> </li>
+	<li> <tt><b>prob3</b></tt> </li>
+	<li> <tt><b>prob4</b></tt> </li>
+	<li> <tt><b>README</b></tt> – A description of the files submitted,
+		a quick description of what is required to run them, and anything you
+		want to tell us before we grade. </li>
+</ul>
+
+<p>, where each <tt><b>prob<i>n</i></b></tt> is a bash file, with execute
+permissions set, and the proper sha-bang (we might be grading from the
+Midnight Commander Shell; who knows?). </p>
+
+<p> Each script should have comments explaining what the script does.  Your
+script may call additional scripts or programs (Awk) in other files and
+temporary files may be created - if so this should be documented.  Make sure
+that the problem can be solved simply by executing your main script. </p>
+
+<p> For example, while testing using the entire archive, you might do
+this: </p>
+
+<blockquote><tt>
+<pre>ARCHIVE=/home/kschmidt/public_html/CS265/Assignments/DrMath/Archive&nbsp;./prob3</pre>
+</tt></blockquote>
+
+<p> Or, define it in your environment, <em>export</em> it, and run your
+program: </p>
+
+<blockquote><code>
+<pre>ARCHIVE=/home/kschmidt/public_html/CS265/Assignments/DrMath/Archive
+export ARCHIVE
+./prob3</pre>
+</code></blockquote>
+
+<p> Do <strong>not</strong> set this variable in your scripts (or, check to
+see that it is unset before modifying it).  We will want to set it to a
+directory of <em>our</em> choosing. </p>
+
+<p> Create a subdirectory which contains the test data you used.  This data
+set should contain a few directories each with a few messages.  It provides
+a quick way to test your code and you should use it to test your code
+yourself. </p>
+
+<p> Do NOT submit temporary files, nor your test data.  Just the required
+scripts, and any helper files. </p>
+
+<p> All assignments should be submitted using <tt>submit_cli</tt> (please contact
+one of the TAs or instructor if you have not done this previously).  </p>
+
+
+
+</body></html>
