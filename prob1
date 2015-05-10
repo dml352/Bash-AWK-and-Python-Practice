@@ -1,0 +1,18 @@
+#!/bin/bash
+# Duc Le
+# CS 265
+# The program will walk through each directory and count the number of 
+# message inside.
+
+#ARCHIVE="/home/kschmidt/public_html/Files/DrMathArchive"
+cd $ARCHIVE
+dir=0			
+message=0	
+for file in * ; do
+	cd $ARCHIVE	
+	dir=$((dir+1))
+	cd $file
+	message=$((message+$(ls | wc -l)))
+done
+echo "$dir $message"
+

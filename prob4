@@ -1,0 +1,27 @@
+#!/bin/bash
+#Duc Le
+#CS265
+#The script will traverse the files, count the number of domains
+#and how many messages were sent from each
+
+#ARCHIVE="/home/kschmidt/public_html/Files/DrMathArchive/"
+HOME=$(pwd)
+cd $ARCHIVE
+#First, define the pattern that we need to find:
+pattern="^To: .*@.*"
+#Second, traverse through the file and look for the pattern
+for file in * ; do
+   cd $ARCHIVE
+   cd $file
+	pwd
+	for text in * ; do   #look through each text file and extract the email
+								#line containing email
+     	grep -m 1 "$pattern" "$text" >> "$HOME/probFourEmail"
+   done
+done
+
+#Third, using awk, with delimiter @ and " " to extract the domain
+# and count
+awk -F '[@ ]' '{print $3}' "$HOME/probFourEmail" | sort | uniq -c | sort -k1nr | awk '{print $2" "$1}
+		END {print "total "NR}'
+rm "$HOME/probFourEmail"

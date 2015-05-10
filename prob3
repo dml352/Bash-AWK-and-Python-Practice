@@ -1,0 +1,28 @@
+#!/bin/bash
+#Duc Le
+#CS265
+#The script will scan through all the file and return how many messages were
+#sent that day
+
+
+#ARCHIVE="/home/kschmidt/public_html/Files/DrMathArchive/"
+cd $ARCHIVE
+
+#First, define the pattern that we need to find:
+#"TimeStamp: month/day/year"
+pattern="$2"/"$3"/"$1"
+searchPat="TimeStamp: $pattern"
+
+#Second, traverse through the file and look for the pattern
+for file in * ; do
+ 	cd $ARCHIVE
+   cd $file
+	for text in * ; do   #look through each text file
+		if grep -m 1 -q "$searchPat" "$text"; then
+			echo $text
+		fi
+	done
+done
+
+
+

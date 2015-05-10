@@ -1,0 +1,29 @@
+#!/bin/bash
+# Duc Le
+# CS 265
+# The script will look into the each directory, print all the file name to 
+# a temporary text file. Next, the file will be sorted, and the number of
+# messages will be counted.
+
+#ARCHIVE="/home/kschmidt/public_html/Files/DrMathArchive"
+
+MUSEUM=$(pwd)	#storing the text file directory
+
+#first, list and sort all the filename into the temp file
+cd $ARCHIVE
+for file in * ; do
+   cd $ARCHIVE
+   cd $file
+	ls | sort | awk ' BEGIN {FS="_"} {print $1} ' | uniq -c >> "$MUSEUM/probTwoTemp"
+done
+
+#second, find the max occurences
+maxMes=0
+maxMes=$(awk ' BEGIN {max=1; maxThread=""; FS=" "}
+	   $1>max	{max=$1; maxThread=$2}
+		END {print max} ' "$MUSEUM/probTwoTemp" )
+
+#third, print out all the thread with maxMes
+awk -v find="$maxMes" '$1 == find {print $1" "$2}' "$MUSEUM/probTwoTemp"
+rm "$MUSEUM/probTwoTemp"
+
